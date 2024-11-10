@@ -1,5 +1,12 @@
 #include "h.h"
 
+void	debug()
+{
+	static int i = 0;
+	printf("HERE: %d\n", i);
+	i++;
+}
+
 void print_mas(double **x, int n, int m)
 {
 	int i, j;
@@ -8,7 +15,7 @@ void print_mas(double **x, int n, int m)
 	{
 		for(j = 0; j < m; ++j)
 		{
-			printf("%.3lf\t", x[i][j]);
+			printf("%.1lf\t", x[i][j]);
 		}
 		printf("\n");
 	}

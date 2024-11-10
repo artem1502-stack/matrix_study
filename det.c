@@ -19,5 +19,3 @@ int sort_lines_det(double **y, int n, int m)
 		}
 	return sign;
 }
-
-

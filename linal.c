@@ -50,4 +50,68 @@ void diag(double **y, int n, int m)
 	}
 }
 
+double  **transponent(double **y, int n, int m)
+{
+	int i, j;
 
+	double **z;
+
+	z = create_mas(m, n);
+	for (i = 0; i < n; ++i)
+		for (j = 0; j < m; ++j)
+			z[j][i] = y[i][j];
+	return z;
+}
+
+double **minor(double **y, int n, int m, int a, int b)
+{
+	double **z;
+	int i, j;
+
+	z = create_mas(n - 1, m - 1);
+	for (i = 0; i < n; ++i)
+		for (j = 0; j < m; ++j)
+		{
+			if ((i != a) && (j != b))
+				z[i - (i > a)][j - (j > b)] = y[i][j];
+		}
+	return z;
+}
+
+double algebra_addition(double **y, int n, int a, int b)
+{
+	double **z;
+	double res;
+
+	z = minor(y, n, n, a, b);
+	printf("%d : %d\n", a, b);
+	if ((a == 4) && (b == 0))
+		print_mas(z, n - 1, n - 1);
+	res = det(z, n - 1);
+	//debug();
+	free_mas(z, n - 1);
+	//debug();
+	return res * (1 - 2 * ((a + b) % 2));
+}
+
+double **inverse_matrix(double **y, int n)
+{
+	double res;
+	double **z, **mas;
+	int i, j;
+
+
+	res = det(y, n);
+	if (check_zero(res))
+		return NULL;
+	z = create_mas(n, n);
+	for (i = 0; i < n; ++i)
+		for (j = 0; j < n; ++j)
+			z[i][j] = algebra_addition(y, n, i, j);
+
+	mas = transponent(z, n, n);
+	free_mas(z, n);
+
+	multiply_on_number(mas, n, n, 1/res);
+	return mas;
+}

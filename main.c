@@ -13,10 +13,15 @@ int main()
 		return 0;
 	}
 
-	t = det(x, n);
-	printf("%lf\n", t);
+	print_mas(x, n, m);
+	printf("\n");
+	double **z;
 
+	z = inverse_matrix(x, n);
+
+	print_mas(z, n, n);
 	free_mas(x, n);
+	free_mas(z, n);
 
 	return 0;
 }
